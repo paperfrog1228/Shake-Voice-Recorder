@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/record_list"
+        android:enabled="true"
+        android:icon="@drawable/ic_baseline_format_list_bulleted_24"
+        android:title="녹음 목록" />
+
+    <item
+        android:id="@+id/bookmark"
+        android:enabled="true"
+        android:icon="@drawable/ic_baseline_star_24"
+        android:title="북마크" />
+
+    <item
+        android:id="@+id/record_action"
+        android:enabled="true"
+        android:icon="@drawable/ic_baseline_mic_24"
+        android:title="녹음하기"/>
+
+    <item
+        android:id="@+id/schedule"
+        android:enabled="true"
+        android:icon="@drawable/ic_baseline_schedule_24"
+        android:title="예약 설정"/>
+
+    <item
+        android:id="@+id/action_setting"
+        android:enabled="true"
+        android:icon="@drawable/ic_baseline_settings_24"
+        android:title="설정"/>
+
+</menu>
