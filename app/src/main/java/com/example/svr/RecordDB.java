@@ -25,17 +25,16 @@ public class RecordDB {
         if(databaseCreated) return true;
         return false;
     }
-
-    /*
-    public void insertRecord(int resId,String name,String mobile,int age) {
-        PhoneBook.execSQL( "insert into phone(resID,name,mobile,age) values("+resId+","+"'"+name+"'"+","+"'"+mobile+"'"+","+age+");");
-    }*/
-
+    public void insertRecord(String name,String date,String path) {
+        //PhoneBook.execSQL( "insert into phone(resID,name,mobile,age) values("+resId+","+"'"+name+"'"+","+"'"+mobile+"'"+","+age+");");
+        DB.execSQL("insert into record(name,date,path) values("+"'"+name+"'"+","+"'"+date+"'"+","+"'"+path+"');");
+    }
     private void createTable(String name) {
         DB.execSQL("create table if not exists " + name + "("
                 + " _id integer PRIMARY KEY autoincrement,"
                 + "name text,"
-                + "date text);" );
+                + "date text,"
+                + "path text);");
         tableCreated = true;
     }
 }

@@ -9,7 +9,8 @@ public class RecordAdapter extends BaseAdapter {
     public int getCount() {
         return items.size();
     }
-    public void addItem(RecordItem item) {
+    public void addItem(String name, String date, String path) {
+        RecordItem item=new RecordItem(name,date,path);
         items.add(item);
     }
 
@@ -21,12 +22,10 @@ public class RecordAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup viewGroup) {
         RecordItemView view = new RecordItemView(viewGroup.getContext());
-
         RecordItem item = items.get(position);
         view.setName(item.getName());
         view.setDate(item.getDate());
         view.setLength(item.getLength());
-
         return view;
     }
 }
