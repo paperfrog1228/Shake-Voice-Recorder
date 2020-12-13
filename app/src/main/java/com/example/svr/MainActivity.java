@@ -13,7 +13,6 @@ public class MainActivity extends AppCompatActivity {
     private RecordActionFrag recordActionFrag;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         recordActionFrag = new RecordActionFrag();
@@ -44,6 +43,12 @@ public class MainActivity extends AppCompatActivity {
             }
             });
         onFragmentChanged(0);
+
+       //if(!RecordDB.getInstance().isDatabaseCreated())
+            RecordDB.getInstance().initDB(this);
+    }
+    public void createDatabase(){
+        RecordDB.getInstance().DB = openOrCreateDatabase("recordDB", MODE_PRIVATE, null);
     }
     public void onFragmentChanged(int index){
         System.out.println("index : "+index);
@@ -56,4 +61,5 @@ public class MainActivity extends AppCompatActivity {
                 break;
         }
     }
+
 }
