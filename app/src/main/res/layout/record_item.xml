@@ -54,4 +54,21 @@
         app:layout_constraintStart_toEndOf="@+id/recordItem_date"
         app:layout_constraintTop_toBottomOf="@+id/recordItem_name" />
 
+    <ImageButton
+        android:id="@+id/btn_delete"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="97dp"
+        android:layout_marginLeft="97dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginBottom="13dp"
+        app:layout_constraintBottom_toTopOf="@+id/recordItem_length"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/recordItem_name"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_baseline_delete_24"
+        android:contentDescription="TODO" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

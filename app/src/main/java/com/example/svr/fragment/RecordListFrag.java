@@ -8,9 +8,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.example.svr.MainActivity;
 import com.example.svr.R;
@@ -21,13 +23,14 @@ import com.example.svr.RecordItem;
 public class RecordListFrag extends Fragment {
     RecordAdapter adapter;
     ListView listView;
-
+    FragmentTransaction ft;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.record_list_frag, container, false);
         listView =  rootView.findViewById(R.id.RecordListView);
-        adapter = new RecordAdapter();
+        adapter = new RecordAdapter(this);
+        ft = getFragmentManager().beginTransaction();
         listView.setAdapter(adapter);
         updateListview();
         return rootView;
@@ -49,5 +52,8 @@ public class RecordListFrag extends Fragment {
             cursor.close();
         }
     }
-
+    public void deleteRecord(){
+        ft.detach(this).attach(this).commit();
+        Toast.makeText(getActivity(), "삭제되었습니다.", Toast.LENGTH_SHORT).show();
+    }
 }

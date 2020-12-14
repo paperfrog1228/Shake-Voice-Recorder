@@ -25,6 +25,9 @@ public class RecordDB {
         if(databaseCreated) return true;
         return false;
     }
+    public void deleteRecord(String date){
+        DB.execSQL("DELETE FROM record WHERE date = '" + date + "';");
+    }
     public void insertRecord(String name,String date,String path) {
         //PhoneBook.execSQL( "insert into phone(resID,name,mobile,age) values("+resId+","+"'"+name+"'"+","+"'"+mobile+"'"+","+age+");");
         DB.execSQL("insert into record(name,date,path) values("+"'"+name+"'"+","+"'"+date+"'"+","+"'"+path+"');");
