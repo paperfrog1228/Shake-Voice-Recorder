@@ -36,7 +36,8 @@ public class RecordListFrag extends Fragment {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                PopUpPlayer();
+                RecordItem itme=(RecordItem)parent.getItemAtPosition(position);
+                PopUpPlayer(itme);
             }
         });
         listView.setAdapter(adapter);
@@ -50,7 +51,7 @@ public class RecordListFrag extends Fragment {
             Cursor cursor = RecordDB.getInstance().DB.rawQuery(sql, null);
             cursor.moveToFirst();
             for( int i = 0; i< cursor.getCount(); i++){
-                System.out.println("1: "+cursor.getString(1)+" 2: "+cursor.getString(2));
+                System.out.println("1: "+cursor.getString(1)+" 2: "+cursor.getString(2)+"3 : "+cursor.getString(3));
                 String name = cursor.getString(1);
                 String date = cursor.getString(2);
                 String path = cursor.getString(3);
@@ -64,8 +65,8 @@ public class RecordListFrag extends Fragment {
         ft.detach(this).attach(this).commit();
         Toast.makeText(getActivity(), "삭제되었습니다.", Toast.LENGTH_SHORT).show();
     }
-    public void PopUpPlayer(){
-        PlayerDialogFrag e = PlayerDialogFrag.getInstance();
+    public void PopUpPlayer(RecordItem recordItem){
+        PlayerDialogFrag e = new PlayerDialogFrag(recordItem);
         e.show(getFragmentManager(),PlayerDialogFrag.TAG_EVENT_DIALOG);
     }
 }

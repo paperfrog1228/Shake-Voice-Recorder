@@ -3,9 +3,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageButton;
-import android.widget.LinearLayout;
 
-import com.example.svr.fragment.PlayerDialogFrag;
 import com.example.svr.fragment.RecordListFrag;
 
 import java.util.ArrayList;
@@ -44,7 +42,7 @@ public class RecordAdapter extends BaseAdapter {
         });
         view.setName(item.getName());
         view.setDate(item.getDate());
-        view.setLength(item.getLength());
+        view.setLength(item.getPath());
         return view;
     }
 }

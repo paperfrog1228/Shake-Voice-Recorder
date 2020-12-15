@@ -6,15 +6,16 @@ public class RecordItem {
     String name;
     String date;
     String length;
-    public RecordItem(String name, String date,String length) {
+    String path;
+    public RecordItem(String name, String date,String path) {
         this.name = name;
         this.date = date;
-        this.length = length;
+        this.path=path;
     }
 
     public String getName() { return name; }
     public String getDate() { return date; }
-    public String getLength() { return length; }
+    public String getPath() { return path; }
     public void setName(String name) { this.name = name; }
     public void setDate(String date) { this.date = date; }
     public void setLength(String length) { this.length = length; }
