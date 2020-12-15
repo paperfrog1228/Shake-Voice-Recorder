@@ -3,9 +3,11 @@ import android.content.Context;
 import android.database.Cursor;
 import android.media.MediaRecorder;
 import android.os.Bundle;
+import android.os.ParcelUuid;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -31,6 +33,12 @@ public class RecordListFrag extends Fragment {
         listView =  rootView.findViewById(R.id.RecordListView);
         adapter = new RecordAdapter(this);
         ft = getFragmentManager().beginTransaction();
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                PopUpPlayer();
+            }
+        });
         listView.setAdapter(adapter);
         updateListview();
         return rootView;
@@ -55,5 +63,9 @@ public class RecordListFrag extends Fragment {
     public void deleteRecord(){
         ft.detach(this).attach(this).commit();
         Toast.makeText(getActivity(), "삭제되었습니다.", Toast.LENGTH_SHORT).show();
+    }
+    public void PopUpPlayer(){
+        PlayerDialogFrag e = PlayerDialogFrag.getInstance();
+        e.show(getFragmentManager(),PlayerDialogFrag.TAG_EVENT_DIALOG);
     }
 }

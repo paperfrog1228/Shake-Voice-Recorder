@@ -3,7 +3,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 
+import com.example.svr.fragment.PlayerDialogFrag;
 import com.example.svr.fragment.RecordListFrag;
 
 import java.util.ArrayList;
