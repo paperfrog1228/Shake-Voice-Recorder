@@ -3,6 +3,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageButton;
+import android.widget.ToggleButton;
 
 import com.example.svr.fragment.RecordListFrag;
 
@@ -33,6 +34,7 @@ public class RecordAdapter extends BaseAdapter {
         RecordItemView view = new RecordItemView(viewGroup.getContext());
         RecordItem item = items.get(position);
         ImageButton btn_delete = view.findViewById(R.id.btn_delete);
+        ToggleButton btn_bookmark=view.findViewById(R.id.btn_bookmark);
         btn_delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -40,7 +42,19 @@ public class RecordAdapter extends BaseAdapter {
                 fragment.deleteRecord();
             }
         });
-        view.setName(item.getName());
+        btn_bookmark.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                btn_bookmark.isSelected();
+                if(item.isBookmarked()){
+
+                }
+                else{
+
+                }
+                item.setBookmarked();
+            }
+        });
         view.setDate(item.getDate());
         view.setLength(item.getPath());
         return view;

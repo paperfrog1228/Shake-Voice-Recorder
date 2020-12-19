@@ -28,7 +28,6 @@ public class RecordItemView extends LinearLayout {
         tv_name = (TextView) findViewById(R.id.recordItem_name);
         tv_date = (TextView) findViewById(R.id.recordItem_date);
         tv_length = (TextView) findViewById(R.id.recordItem_length);
-        imageView = (ImageView) findViewById(R.id.recordItem_IV);
     }
     public void setName(String name) { tv_name.setText(name); }
     public void setDate(String date) { tv_date.setText(date); }
