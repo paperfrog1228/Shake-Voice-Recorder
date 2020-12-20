@@ -47,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
             }
             });
         onFragmentChanged(0);
-        
+
             RecordDB.getInstance().initDB(this);
     }
     public void createDatabase(){
