@@ -48,11 +48,12 @@ public class BookmarkListFrag extends Fragment {
             cursor.moveToFirst();
             for( int i = 0; i< cursor.getCount(); i++){
                 System.out.println("1: "+cursor.getString(1)+" 2: "+cursor.getString(2)+"3 : "+cursor.getString(3));
-                String name = cursor.getString(1);
-                String date = cursor.getString(2);
-                String path = cursor.getString(3);
-                int bookmark= cursor.getInt(4);
-                adapter.addItem(name,date, path,bookmark);
+                String name = cursor.getString(cursor.getColumnIndex("name"));
+                String date = cursor.getString(cursor.getColumnIndex("date"));
+                String path = cursor.getString(cursor.getColumnIndex("path"));
+                String length = cursor.getString(cursor.getColumnIndex("length"));
+                int bookmark= cursor.getInt(cursor.getColumnIndex("bookmark"));
+                adapter.addItem(name,date, length,path,bookmark);
                 cursor.moveToNext();
             }
             cursor.close();

@@ -62,8 +62,6 @@ public class MainActivity extends AppCompatActivity {
         RecordDB.getInstance().DB = openOrCreateDatabase("recordDB", MODE_PRIVATE, null);
     }
     public void onFragmentChanged(int index){
-        System.out.println("시발 진짜 뭐냐고"+isRecording);
-
         switch (index) {
             case 0:
                 getSupportFragmentManager().beginTransaction().replace(R.id.Main_Frame,recordListFrag).commit();

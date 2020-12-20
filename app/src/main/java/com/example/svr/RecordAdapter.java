@@ -17,8 +17,8 @@ public class RecordAdapter extends BaseAdapter {
     public int getCount() {
         return items.size();
     }
-    public void addItem(String name, String date, String path,int bookmark) {
-        RecordItem item=new RecordItem(name,date,path,bookmark);
+    public void addItem(String name, String date, String length,String path,int bookmark) {
+        RecordItem item=new RecordItem(name,date,length,path,bookmark);
         items.add(item);
     }
     public RecordAdapter (RecordListFrag fragment)
@@ -61,7 +61,7 @@ public class RecordAdapter extends BaseAdapter {
         });
         view.setName(item.getName());
         view.setDate(item.getDate());
-        view.setLength(item.getPath());
+        view.setLength(item.getLength());
         return view;
     }
 }
