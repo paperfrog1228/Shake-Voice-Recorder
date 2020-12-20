@@ -5,12 +5,14 @@ import android.widget.BaseAdapter;
 import android.widget.ImageButton;
 import android.widget.ToggleButton;
 
+import com.example.svr.fragment.BookmarkListFrag;
 import com.example.svr.fragment.RecordListFrag;
 
 import java.util.ArrayList;
 public class RecordAdapter extends BaseAdapter {
     public ArrayList<RecordItem> items = new ArrayList<RecordItem>();
-    RecordListFrag fragment;
+    RecordListFrag fragment1;
+    BookmarkListFrag fragment2;
     @Override
     public int getCount() {
         return items.size();
@@ -21,9 +23,12 @@ public class RecordAdapter extends BaseAdapter {
     }
     public RecordAdapter (RecordListFrag fragment)
     {
-        this.fragment = fragment;
+        this.fragment1 = fragment;
     }
-
+    public RecordAdapter (BookmarkListFrag fragment)
+    {
+        this.fragment2 = fragment;
+    }
     @Override
     public Object getItem(int position) {
         return items.get(position); }
@@ -41,7 +46,10 @@ public class RecordAdapter extends BaseAdapter {
             @Override
             public void onClick(View v) {
                 RecordDB.getInstance().deleteRecord(item.getDate());
-                fragment.deleteRecord();
+                if(fragment2==null)
+                    fragment1.deleteRecord();
+                if(fragment1==null)
+                    fragment2.deleteRecord();
             }
         });
         btn_bookmark.setOnClickListener(new View.OnClickListener() {

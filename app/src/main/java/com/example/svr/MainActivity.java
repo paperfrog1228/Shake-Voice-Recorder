@@ -3,6 +3,8 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MenuItem;
+
+import com.example.svr.fragment.BookmarkListFrag;
 import com.example.svr.fragment.RecordActionFrag;
 import com.example.svr.fragment.RecordListFrag;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -11,12 +13,14 @@ public class MainActivity extends AppCompatActivity {
     private BottomNavigationView bottomNavigationView;
     private RecordListFrag recordListFrag;
     private RecordActionFrag recordActionFrag;
+    private BookmarkListFrag bookmarkListFrag;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         recordActionFrag = new RecordActionFrag();
         recordListFrag = new RecordListFrag();
+        bookmarkListFrag = new BookmarkListFrag();
         bottomNavigationView = findViewById(R.id.bottomNavi);
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener()
         {
@@ -43,8 +47,7 @@ public class MainActivity extends AppCompatActivity {
             }
             });
         onFragmentChanged(0);
-
-       //if(!RecordDB.getInstance().isDatabaseCreated())
+        
             RecordDB.getInstance().initDB(this);
     }
     public void createDatabase(){
@@ -55,6 +58,9 @@ public class MainActivity extends AppCompatActivity {
         switch (index) {
             case 0:
                 getSupportFragmentManager().beginTransaction().replace(R.id.Main_Frame,recordListFrag).commit();
+                break;
+            case 1:
+                getSupportFragmentManager().beginTransaction().replace(R.id.Main_Frame,bookmarkListFrag).commit();
                 break;
             case 2:
                 getSupportFragmentManager().beginTransaction().replace(R.id.Main_Frame,recordActionFrag).commit();
