@@ -1,4 +1,5 @@
 package com.example.svr.fragment;
+import android.media.MediaPlayer;
 import android.media.MediaRecorder;
 import android.os.Bundle;
 import android.os.Environment;
@@ -20,7 +21,10 @@ import java.util.Date;
 
 public class RecordActionFrag extends Fragment {
     MediaRecorder myAudioRecorder;
-    String outputFile;
+    MediaPlayer mediaPlayer;
+    String file_length;
+    String file_name;
+    String record_date;
     SimpleDateFormat simpleDate;
     @Nullable
     @Override
@@ -37,7 +41,7 @@ public class RecordActionFrag extends Fragment {
         if (!file.exists()){
             file.mkdirs();
         }
-        String file_name=file+"/"+current_time;
+        file_name=file+"/"+current_time;
         recordBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -63,6 +67,7 @@ public class RecordActionFrag extends Fragment {
         stopBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                mediaPlayer =new MediaPlayer();
                 System.out.println("sssss:"+file_name);
                 try
                 {
@@ -73,11 +78,14 @@ public class RecordActionFrag extends Fragment {
                     System.out.println("e"+e);
                 }
                 myAudioRecorder.reset();
-               myAudioRecorder.release();
+                myAudioRecorder.release();
                 myAudioRecorder=null;
                recordBtn.setEnabled(true);
                stopBtn.setEnabled(false);
-               RecordDB.getInstance().insertRecord("testtest",simpleDate.format(new Date(System.currentTimeMillis())),file_name);
+                file_length=getLength();
+                record_date=simpleDate.format(new Date(System.currentTimeMillis()));
+                System.out.println(record_date);
+               RecordDB.getInstance().insertRecord(file_name,record_date,file_length,0,file_name);
             }
         });
 
@@ -104,5 +112,25 @@ public class RecordActionFrag extends Fragment {
         catch (IllegalStateException ise){
             System.out.println(ise);
         }
+    }
+    private String getLength(){
+        int duration=0;
+
+        if(mediaPlayer.isPlaying()) {
+            mediaPlayer.pause();
+        }
+        mediaPlayer.reset();
+        try {
+            mediaPlayer.setDataSource(file_name);
+
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        String Hour = String.format("%02d",(duration/1000/3600));
+        String Min = String.format("%02d",((duration/1000/60)%60));
+        String Sec = String.format("%02d", (duration / 1000) % 60);
+        return Hour+":"+Min+":"+Sec;
     }
 }

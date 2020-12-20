@@ -55,7 +55,8 @@ public class RecordListFrag extends Fragment {
                 String name = cursor.getString(1);
                 String date = cursor.getString(2);
                 String path = cursor.getString(3);
-                adapter.addItem(name,date, path);
+                int bookmark= cursor.getInt(4);
+                adapter.addItem(name,date, path,bookmark);
                 cursor.moveToNext();
             }
             cursor.close();

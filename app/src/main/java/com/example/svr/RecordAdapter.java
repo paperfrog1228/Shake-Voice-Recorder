@@ -15,8 +15,8 @@ public class RecordAdapter extends BaseAdapter {
     public int getCount() {
         return items.size();
     }
-    public void addItem(String name, String date, String path) {
-        RecordItem item=new RecordItem(name,date,path);
+    public void addItem(String name, String date, String path,int bookmark) {
+        RecordItem item=new RecordItem(name,date,path,bookmark);
         items.add(item);
     }
     public RecordAdapter (RecordListFrag fragment)
@@ -35,6 +35,8 @@ public class RecordAdapter extends BaseAdapter {
         RecordItem item = items.get(position);
         ImageButton btn_delete = view.findViewById(R.id.btn_delete);
         ToggleButton btn_bookmark=view.findViewById(R.id.btn_bookmark);
+        if(item.isBookmarked())
+            btn_bookmark.setChecked(true);
         btn_delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -45,13 +47,7 @@ public class RecordAdapter extends BaseAdapter {
         btn_bookmark.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                btn_bookmark.isSelected();
-                if(item.isBookmarked()){
-
-                }
-                else{
-
-                }
+                RecordDB.getInstance().bookmarkRecord(item.getDate());
                 item.setBookmarked();
             }
         });
