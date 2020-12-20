@@ -26,6 +26,7 @@ public class MainActivity extends AppCompatActivity {
         recordListFrag = new RecordListFrag();
         bookmarkListFrag = new BookmarkListFrag();
         bottomNavigationView = findViewById(R.id.bottomNavi);
+        bottomNavigationView.getMenu().findItem(R.id.schedule).setVisible(false);
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener()
         {
             @Override

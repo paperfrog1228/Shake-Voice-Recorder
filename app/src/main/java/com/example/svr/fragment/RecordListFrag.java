@@ -1,22 +1,18 @@
 package com.example.svr.fragment;
-import android.content.Context;
 import android.database.Cursor;
-import android.media.MediaRecorder;
 import android.os.Bundle;
-import android.os.ParcelUuid;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.Button;
 import android.widget.ListView;
+import android.widget.SearchView;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
-import com.example.svr.MainActivity;
 import com.example.svr.R;
 import com.example.svr.RecordAdapter;
 import com.example.svr.RecordDB;
@@ -31,6 +27,7 @@ public class RecordListFrag extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.record_list_frag, container, false);
         listView =  rootView.findViewById(R.id.RecordListView);
+        SearchView searchView = rootView.findViewById(R.id.searchView);
         adapter = new RecordAdapter(this);
         ft = getFragmentManager().beginTransaction();
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -40,11 +37,22 @@ public class RecordListFrag extends Fragment {
                 PopUpPlayer(itme);
             }
         });
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                updateSearchListView(newText);
+                return false;
+            }
+        });
         listView.setAdapter(adapter);
-        updateListview();
+        updateListView();
         return rootView;
     }
-    private void updateListview(){
+    private void updateListView(){
         if(RecordDB.getInstance().DB != null){
             adapter.items.clear();
             String sql = "select * from record";
@@ -70,5 +78,24 @@ public class RecordListFrag extends Fragment {
     public void PopUpPlayer(RecordItem recordItem){
         PlayerDialogFrag e = new PlayerDialogFrag(recordItem);
         e.show(getFragmentManager(),PlayerDialogFrag.TAG_EVENT_DIALOG);
+    }
+    private void updateSearchListView(String newText){
+        if(RecordDB.getInstance().DB != null){
+            adapter.items.clear();
+            String sql = "select * from record where name like '%"+newText+"%'";
+            Cursor cursor = RecordDB.getInstance().DB.rawQuery(sql, null);
+            cursor.moveToFirst();
+            for( int i = 0; i< cursor.getCount(); i++){
+                System.out.println("1: "+cursor.getString(1)+" 2: "+cursor.getString(2)+"3 : "+cursor.getString(3));
+                String name = cursor.getString(cursor.getColumnIndex("name"));
+                String date = cursor.getString(cursor.getColumnIndex("date"));
+                String path = cursor.getString(cursor.getColumnIndex("path"));
+                String length = cursor.getString(cursor.getColumnIndex("length"));
+                int bookmark= cursor.getInt(cursor.getColumnIndex("bookmark"));
+                adapter.addItem(name,date, length,path,bookmark);
+                cursor.moveToNext();
+            }
+            cursor.close();
+        }
     }
 }
