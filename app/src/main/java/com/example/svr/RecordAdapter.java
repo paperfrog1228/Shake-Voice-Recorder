@@ -59,6 +59,7 @@ public class RecordAdapter extends BaseAdapter {
                 item.setBookmarked();
             }
         });
+        view.setName(item.getName());
         view.setDate(item.getDate());
         view.setLength(item.getPath());
         return view;

@@ -23,7 +23,6 @@ public class RecordItem {
             bookmarked=false;
         else
             bookmarked=true;
-        System.out.println("sex!!"+bookmarked);
     }
     public String getName() { return name; }
     public String getDate() { return date; }

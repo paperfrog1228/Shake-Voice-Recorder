@@ -48,7 +48,6 @@ public class RecordDB {
     }
     public void insertRecord(String name,String date,String length,int bookmark,String path) {
        String sql = "'"+name+"'"+","+"'"+date+"'"+","+"'"+length+"'"+","+bookmark+","+"'"+path+"'";
-       System.out.println(sql);
        DB.execSQL("insert into record(name,date,length,bookmark,path) values("+sql+");");
     }
     private void createTable(String name) {

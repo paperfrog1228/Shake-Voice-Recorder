@@ -52,7 +52,8 @@ public class RecordListFrag extends Fragment {
             cursor.moveToFirst();
             for( int i = 0; i< cursor.getCount(); i++){
                 System.out.println("1: "+cursor.getString(1)+" 2: "+cursor.getString(2)+"3 : "+cursor.getString(3));
-                String name = cursor.getString(1);
+                String name = cursor.getString(cursor.getColumnIndex("name"));
+                System.out.println("namesex : "+name);
                 String date = cursor.getString(2);
                 String path = cursor.getString(3);
                 int bookmark= cursor.getInt(4);
