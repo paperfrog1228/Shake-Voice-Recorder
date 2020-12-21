@@ -137,13 +137,11 @@ public class RecordActionFrag extends Fragment {
     }
     private void setMediaRecorder(){
         myAudioRecorder = new MediaRecorder();
-        //myAudioRecorder.reset();
         myAudioRecorder.setAudioSource(MediaRecorder.AudioSource.MIC);
         myAudioRecorder.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP);
         myAudioRecorder.setAudioEncoder(MediaRecorder.OutputFormat.AMR_NB);
         file_name=fileNameTv.getText().toString();
         file_path=file+"/"+file_name+".3gp";
-        System.out.println("sex "+file_path);
         myAudioRecorder.setOutputFile(file_path);
         try {
             myAudioRecorder.prepare();
