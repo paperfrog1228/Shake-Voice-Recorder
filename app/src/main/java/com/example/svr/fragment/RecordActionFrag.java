@@ -26,6 +26,7 @@ import androidx.fragment.app.FragmentTransaction;
 import com.example.svr.MainActivity;
 import com.example.svr.R;
 import com.example.svr.RecordDB;
+import com.example.svr.Setting;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -60,8 +61,6 @@ public class RecordActionFrag extends Fragment {
         ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.record_action_frag, container, false);
         file_path=Environment.getExternalStorageDirectory()+"/SVR";
         file= new File(file_path);
-        Long date=new Date().getTime();
-
         simpleDate=new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
         simpleFilename=new SimpleDateFormat("yyyy"+"MM"+"dd"+"_"+"hh"+"mm"+"ss");
         // init
@@ -119,6 +118,7 @@ public class RecordActionFrag extends Fragment {
                 String file_length=recordTimeTv.getText().toString();
                 record_date=simpleDate.format(new Date(System.currentTimeMillis()));
                 timeThread.interrupt();
+                System.out.println("file_path :"+file_path);
                 RecordDB.getInstance().insertRecord(file_name,record_date,file_length,isBookmark,file_path);
                 init();
                 mainActivity.onCompleteSave();
@@ -138,10 +138,11 @@ public class RecordActionFrag extends Fragment {
     private void setMediaRecorder(){
         myAudioRecorder = new MediaRecorder();
         myAudioRecorder.setAudioSource(MediaRecorder.AudioSource.MIC);
-        myAudioRecorder.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP);
-        myAudioRecorder.setAudioEncoder(MediaRecorder.OutputFormat.AMR_NB);
+        myAudioRecorder.setOutputFormat(Setting.getInstance().getFormat());
+        myAudioRecorder.setAudioEncoder(Setting.getInstance().getEncoder());
+        myAudioRecorder.setAudioSamplingRate(Setting.getInstance().getSamplingRate());
         file_name=fileNameTv.getText().toString();
-        file_path=file+"/"+file_name+".3gp";
+        file_path=file+"/"+file_name+Setting.getInstance().getFormatStr();
         myAudioRecorder.setOutputFile(file_path);
         try {
             myAudioRecorder.prepare();
@@ -189,7 +190,7 @@ public class RecordActionFrag extends Fragment {
                     msg.arg1 = i++;
                     handler.sendMessage(msg);
                     try {
-                        Thread.sleep(10);
+                        Thread.sleep(8);
                     }
                     catch (InterruptedException e) {
                         e.printStackTrace();

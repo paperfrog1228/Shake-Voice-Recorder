@@ -26,6 +26,7 @@ public class PlayerDialogFrag extends DialogFragment {
     TextView curTimeTv;
     TextView endTimeTv;
     Thread playingBarThread;
+    ImageButton playBtn;
     public static final String TAG_EVENT_DIALOG="test";
    public PlayerDialogFrag(RecordItem recordItem){
        record=recordItem;
@@ -39,7 +40,7 @@ public class PlayerDialogFrag extends DialogFragment {
         playingBarThread=new Thread(new playingBarThread());
         mediaPlayer=new MediaPlayer();
         View v =inflater.inflate(R.layout.player_dialog_frag,container);
-        ImageButton playBtn=v.findViewById(R.id.btn_player_start);
+        playBtn=v.findViewById(R.id.btn_player_start);
         playingBar= v.findViewById(R.id.seekBar_player);
         TextView nameTv=v.findViewById(R.id.tv_recordplayerName);
         curTimeTv=v.findViewById(R.id.tv_curpos);
@@ -84,6 +85,14 @@ public class PlayerDialogFrag extends DialogFragment {
         });
        return v;
     }
+    public void endPlayer(){
+        mediaPlayer.seekTo(0);
+        mediaPlayer.pause();
+        playBtn.setImageResource(R.drawable.play);
+        playingBar.setProgress(0);
+        isPlaying=false;
+        playingBarThread.interrupt();
+    }
     private String getTimeString(int duration){
         String Hour = String.format("%02d",(duration)/1000/3600);
         String Min = String.format("%02d",((duration)/1000/60)%60);
@@ -94,7 +103,7 @@ public class PlayerDialogFrag extends DialogFragment {
         @RequiresApi(api = Build.VERSION_CODES.N)
         public void handleMessage(Message msg){
             curTimeTv.setText(getTimeString(mediaPlayer.getCurrentPosition()));
-            playingBar.setProgress(mediaPlayer.getCurrentPosition(),true);
+            playingBar.setProgress(mediaPlayer.getCurrentPosition());
         }
     };
     class playingBarThread implements Runnable {
@@ -102,9 +111,10 @@ public class PlayerDialogFrag extends DialogFragment {
         public void run() {
             while(true)
             while(isPlaying) {
-                System.out.println("sss"+mediaPlayer.getCurrentPosition());
                 Message msg = handler.obtainMessage();
                 handler.sendMessage(msg);
+                if(mediaPlayer.getCurrentPosition()==mediaPlayer.getDuration())
+                    endPlayer();
             }
         }
     }
