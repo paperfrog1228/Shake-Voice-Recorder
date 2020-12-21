@@ -1,4 +1,5 @@
 package com.example.svr;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 public class RecordDB {
     private static RecordDB instance;
@@ -25,17 +26,38 @@ public class RecordDB {
         if(databaseCreated) return true;
         return false;
     }
-
-    /*
-    public void insertRecord(int resId,String name,String mobile,int age) {
-        PhoneBook.execSQL( "insert into phone(resID,name,mobile,age) values("+resId+","+"'"+name+"'"+","+"'"+mobile+"'"+","+age+");");
-    }*/
-
+    public void deleteRecord(String date){
+        DB.execSQL("DELETE FROM record WHERE date = '" + date + "';");
+    }
+    public void bookmarkRecord(String date) {
+        int bookmark = 0;
+        String sql = "select * from record where date ='" + date + "'";
+        Cursor cursor = RecordDB.getInstance().DB.rawQuery(sql, null);
+        int index = cursor.getColumnIndex("bookmark");
+        while (cursor.moveToNext()) {
+            System.out.println("index : " + index);
+            int tmp = cursor.getInt(4);
+            System.out.println("bookmark : " + bookmark + "tmp: " + tmp);
+            if (tmp == 1)
+                bookmark = 0;
+            else
+                bookmark = 1;
+            DB.execSQL("update record set bookmark ="+bookmark+" where date ='" + date + "';");
+        }
+        cursor.close();
+    }
+    public void insertRecord(String name,String date,String length,int bookmark,String path) {
+       String sql = "'"+name+"'"+","+"'"+date+"'"+","+"'"+length+"'"+","+bookmark+","+"'"+path+"'";
+       DB.execSQL("insert into record(name,date,length,bookmark,path) values("+sql+");");
+    }
     private void createTable(String name) {
         DB.execSQL("create table if not exists " + name + "("
                 + " _id integer PRIMARY KEY autoincrement,"
                 + "name text,"
-                + "date text);" );
+                + "date text,"
+                + "length text,"
+                + "bookmark text," //이새키 boolean 타입이 없다구..?
+                + "path text);");
         tableCreated = true;
     }
 }

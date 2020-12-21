@@ -3,30 +3,22 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:descendantFocusability="blocksDescendants">
 
     <TextView
         android:id="@+id/recordItem_name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="250dp"
+        android:layout_height="30dp"
         android:layout_marginStart="16dp"
         android:layout_marginLeft="16dp"
         android:layout_marginTop="16dp"
+        android:ellipsize="end"
+        android:maxLines="1"
         android:text="음성 녹음 #1"
         android:textSize="24sp"
-        app:layout_constraintStart_toEndOf="@+id/recordItem_IV"
+        app:layout_constraintStart_toEndOf="@+id/btn_bookmark"
         app:layout_constraintTop_toTopOf="parent" />
-
-    <ImageView
-        android:id="@+id/recordItem_IV"
-        android:layout_width="90dp"
-        android:layout_height="95dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginTop="16dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:srcCompat="@tools:sample/avatars" />
 
     <TextView
         android:id="@+id/recordItem_date"
@@ -34,10 +26,10 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginLeft="16dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="16dp"
         android:text="20.12.13"
         android:textSize="18sp"
-        app:layout_constraintStart_toEndOf="@+id/recordItem_IV"
+        app:layout_constraintStart_toEndOf="@+id/btn_bookmark"
         app:layout_constraintTop_toBottomOf="@+id/recordItem_name" />
 
     <TextView
@@ -53,5 +45,40 @@
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toEndOf="@+id/recordItem_date"
         app:layout_constraintTop_toBottomOf="@+id/recordItem_name" />
+
+    <ImageButton
+        android:id="@+id/btn_delete"
+        android:layout_width="34dp"
+        android:layout_height="33dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginBottom="13dp"
+        android:background="#00FFFFFF"
+        android:clickable="false"
+        android:contentDescription="TODO"
+        android:focusable="false"
+        android:focusableInTouchMode="false"
+        android:scaleType="fitCenter"
+        app:layout_constraintBottom_toTopOf="@+id/recordItem_length"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/recordItem_name"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0"
+        app:srcCompat="@drawable/ic_baseline_delete_24" />
+
+    <ToggleButton
+        android:id="@+id/btn_bookmark"
+        android:layout_width="59dp"
+        android:layout_height="59dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/bookmark_btn_states"
+        android:textOff=""
+        android:textOn=""
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

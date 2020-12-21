@@ -6,16 +6,31 @@ public class RecordItem {
     String name;
     String date;
     String length;
-    public RecordItem(String name, String date,String length) {
+    String path;
+    boolean bookmarked=false;
+    public RecordItem(String name, String date,String length,String path,int bookmark) {
         this.name = name;
         this.date = date;
-        this.length = length;
+        this.length=length;
+        this.path=path;
+        if(bookmark==1)
+            this.bookmarked=true;
+        else
+            this.bookmarked=false;
     }
-
+    public boolean isBookmarked(){ return bookmarked;}
+    public void setBookmarked(){
+        if(bookmarked==true)
+            bookmarked=false;
+        else
+            bookmarked=true;
+    }
     public String getName() { return name; }
     public String getDate() { return date; }
-    public String getLength() { return length; }
+    public String getPath() { return path; }
+    public String getLength() {return length; }
     public void setName(String name) { this.name = name; }
     public void setDate(String date) { this.date = date; }
     public void setLength(String length) { this.length = length; }
+
 }
