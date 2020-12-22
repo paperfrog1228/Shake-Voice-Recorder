@@ -79,14 +79,14 @@ public class RecordListFrag extends Fragment {
     public void PopUpPlayer(RecordItem recordItem){
         PlayerDialogFrag e = new PlayerDialogFrag(recordItem);
         e.show(getFragmentManager(),PlayerDialogFrag.TAG_EVENT_DIALOG);
-        /*getFragmentManager().executePendingTransactions();
+        getFragmentManager().executePendingTransactions();
         e.getDialog().setOnDismissListener(
                 new DialogInterface.OnDismissListener() {
                     @Override
                     public void onDismiss(DialogInterface dialogInterface) {
                         e.endPlayer();
                     }
-                });*/
+                });
     }
     private void updateSearchListView(String newText){
         if(RecordDB.getInstance().DB != null){
