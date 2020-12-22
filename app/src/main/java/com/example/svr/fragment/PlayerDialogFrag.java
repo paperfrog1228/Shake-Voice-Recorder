@@ -87,6 +87,7 @@ public class PlayerDialogFrag extends DialogFragment {
     }
     public void endPlayer(){
         mediaPlayer.seekTo(0);
+
         mediaPlayer.pause();
         playBtn.setImageResource(R.drawable.play);
         playingBar.setProgress(0);

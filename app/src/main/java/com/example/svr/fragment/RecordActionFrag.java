@@ -128,7 +128,9 @@ public class RecordActionFrag extends Fragment {
         return rootView;
     }
     private void init(){
+        fileNameTv.setEnabled(true);
         fileNameTv.setText(simpleFilename.format(new Date(System.currentTimeMillis())));
+
         stopBtn.setEnabled(false);
         bookmarkBtn.setChecked(false);
         isRecord=false;
@@ -142,6 +144,7 @@ public class RecordActionFrag extends Fragment {
         myAudioRecorder.setAudioEncoder(Setting.getInstance().getEncoder());
         myAudioRecorder.setAudioSamplingRate(Setting.getInstance().getSamplingRate());
         file_name=fileNameTv.getText().toString();
+        fileNameTv.setEnabled(false);
         file_path=file+"/"+file_name+Setting.getInstance().getFormatStr();
         myAudioRecorder.setOutputFile(file_path);
         try {
@@ -158,7 +161,6 @@ public class RecordActionFrag extends Fragment {
         setMediaRecorder();
         mainActivity.setIsRecording(true);
         stopBtn.setImageResource(R.drawable.stop_enable);
-        fileNameTv.setEnabled(true);
         try{
             myAudioRecorder.start();
         }
