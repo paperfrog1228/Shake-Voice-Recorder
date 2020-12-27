@@ -35,9 +35,7 @@ public class RecordDB {
         Cursor cursor = RecordDB.getInstance().DB.rawQuery(sql, null);
         int index = cursor.getColumnIndex("bookmark");
         while (cursor.moveToNext()) {
-            System.out.println("index : " + index);
             int tmp = cursor.getInt(4);
-            System.out.println("bookmark : " + bookmark + "tmp: " + tmp);
             if (tmp == 1)
                 bookmark = 0;
             else
@@ -48,6 +46,7 @@ public class RecordDB {
     }
     public void insertRecord(String name,String date,String length,int bookmark,String path) {
        String sql = "'"+name+"'"+","+"'"+date+"'"+","+"'"+length+"'"+","+bookmark+","+"'"+path+"'";
+       System.out.println("SQL : "+sql);
        DB.execSQL("insert into record(name,date,length,bookmark,path) values("+sql+");");
     }
     private void createTable(String name) {
@@ -56,7 +55,7 @@ public class RecordDB {
                 + "name text,"
                 + "date text,"
                 + "length text,"
-                + "bookmark text," //이새키 boolean 타입이 없다구..?
+                + "bookmark text," //boolean 타입이 없다구..?
                 + "path text);");
         tableCreated = true;
     }
